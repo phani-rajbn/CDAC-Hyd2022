@@ -16,7 +16,13 @@ class Employee{
 
 class EmpManager{
     //CURD operations for a collection...
-    data =[];//create a blank array..
+    data =[
+        new Employee(111, "Phaniraj", "Bangalore"),
+        new Employee(112, "Alok", "Indore"),
+        new Employee(113, "Nithin", "Latur"),
+        new Employee(114, "Sangharsh", "Nagpur"),
+        new Employee(115, "Naveen", "Kurnool"),
+    ];//create a blank array..
     addEmployee(emp){
         this.data.push(emp)//adds the object to the bottom of the list...
     }
@@ -30,13 +36,15 @@ class EmpManager{
     getAllEmployees(){
         return this.data;
     }
+
+    
     deleteEmployee(id){
         // let foundRec = this.data.find((e)=>e.empId == id);
         // let index = this.data.indexOf(foundRec);
         // this.data.splice(index, 1);
         for (let index = 0; index < this.data.length; index++) {
             if(this.data[index].empId == id){
-                this.data.splice(index, 1)
+                this.data.splice(index, 1)//Splice method removes the record(s) from the index to the no of elements passed as 2nd arg.
                 return;
             }
         }

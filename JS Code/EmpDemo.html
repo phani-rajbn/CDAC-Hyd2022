@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Manager</title>
+    <script src="jquery.min.js"></script>
+    <script src="ClassesDemo.js"></script>
+    <style>
+        div{
+            display: inline-block;
+            width: 45%;
+            margin: 3px;
+            padding: 4px;
+            vertical-align: top;
+            border:2px solid blueviolet
+        }
+    </style>
+    <script>
+        let mgr = new EmpManager();//Single instance of the EmpManager object....
+        function addRec(){
+            //create an employee object based on inputs given by the user...
+            let id = parseInt($("#txtId").val());
+            let name = $("#txtName").val();
+            let address = $("#txtAddress").val();
+            //create the Employee object and pass the values
+            let emp = new Employee(id, name, address);
+            //call the addEmployee
+            mgr.addEmployee(emp);
+            alert("Employee added successfully")
+        }
+        
+        function onShow() {
+            let records = mgr.getAllEmployees()
+           $("#tblRecords").find("tr:gt(0)").remove();
+            for (const emp of records) {
+                let row = `<tr><td>${emp.empId}</td><td>${emp.empName}</td><td>${emp.empAddress}</td><td><a href="#" class="editClass" eId="${emp.empId}" onclick="onEdit()">Edit</a></td></tr>`;
+                $("#tblRecords").append(row)
+            }
+            $(".editClass").click(function(){
+               let id =  $(this).attr("eId")
+               let data = mgr.getAllEmployees();
+               let selected = data.find((e)=>e.empId == id);
+               $("#txtUpdateId").val(selected.empId)
+               $("#txtUpdateName").val(selected.empName)
+               $("#txtUpdateAddress").val(selected.empAddress)
+            })
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a id="aShow" onclick="onShow()" href="#">All Employees</a>
+    </nav>
+    <article>
+        <h2>Employee Information System</h2>
+        <div>
+            <table id="tblRecords" border="1">
+                <tr>
+                    <td>Employee ID</td>
+                    <td>Employee Name</td>
+                    <td>Employee Address</td>
+                    <td>Options</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <h2>Edit Employee</h2>
+            <section>
+                <input type="text" id="txtUpdateId" placeholder="Enter the ID">
+                <input type="text" id="txtUpdateName" placeholder="Enter the Name">
+                <input type="text" id="txtUpdateAddress" placeholder="Enter the Address"><br>
+                <button onclick="addRec()">Save Record</button>
+            </section>     
+        </div>
+        <div>
+            <h2>Add new Employee</h2>
+            <section>
+                <input type="text" id="txtId" placeholder="Enter the ID">
+                <input type="text" id="txtName" placeholder="Enter the Name">
+                <input type="text" id="txtAddress" placeholder="Enter the Address"><br>
+                <button onclick="addRec()">Save Record</button>
+            </section>     
+        </div>
+    </article>
+</body>
+</html>
