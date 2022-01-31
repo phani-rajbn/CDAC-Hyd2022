@@ -1,0 +1,7 @@
+Nodejs, Express and React
+U should know: JavaScript, ES6 features, HTML and DOM. 
+Software: Any OS, Visual Studio Code, Nodejs, an ability to download packages from the internet. 
+Things to know: How to create class in JS, How to create methods in JS, Work with collections like arrays. 
+
+span is used to write text or content which are small in size and want to place inline. 
+Unlike Divs and p, it does not create a new block. 

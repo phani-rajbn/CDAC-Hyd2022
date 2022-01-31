@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Objects in JS</title>
+</head>
+<script src="./ClassesDemo.js"></script>
+<script src="./mylib.js"></script>
+<style>
+    #spShow{
+        color:indianred;
+    }
+</style>
+<script>
+    function saveRecord() {
+        //get the values from the input tags...
+        let id = parseInt($("txtId").value);
+        let name = $("txtName").value;
+        let address = $("txtAddress").value;
+        //create the Employee object and pass the values
+        let emp = new Employee(id, name, address);
+        //store the data into the localStorage(stores it as string...).
+        localStorage.setItem("empData", JSON.stringify(emp))
+        //alert message to say that the data is saved. 
+        alert("Employee Info is saved to the storage")
+    }
+
+    function readRecord() {
+        let createdObj = JSON.parse(localStorage.getItem("empData"));
+
+        let data = `The Name : ${createdObj.empName} from ${createdObj.empAddress}`
+        $("spShow").innerText = data
+    }
+</script>
+<body>
+    <h1>Employee Information</h1>
+    <div>
+        <input type="text" id="txtId" placeholder="Enter the ID">
+        <input type="text" id="txtName" placeholder="Enter the Name">
+        <input type="text" id="txtAddress" placeholder="Enter the Address">
+        <button onclick="saveRecord()">Save Record</button>
+    </div>
+    <div><button onclick="readRecord()">Show Details</button><span id="spShow"></span></div>
+</body>
+</html>

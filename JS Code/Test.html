@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Document</title>
+    <script src="./Simple.js"></script>
+    <script src="./mylib.js"></script>
+    <script>
+        function callFunc(){
+            // //prompt is a UI function that will ask the input from the User thru a popup Wino
+            // let v1 = parseFloat(prompt("Enter the First Value"));
+            // let v2 = parseFloat(prompt("Enter the Second Value"));
+            // let res = subFunc(v1, v2)
+            // document.getElementById('spData').innerText = res
+
+            ////////////////example to call the func by taking values from the DOM Elements. 
+            // let v1 = document.getElementById("txtNum1").value;
+            // let v2 = document.getElementById("txtNum2").value;
+            // let choice = document.getElementById("option").value;
+             let v1 = $("txtNum1").value;
+             let v2 = $("txtNum2").value;
+             let choice = $("option").value;
+
+
+            let res = 0.0
+            switch(choice){
+                 case "+": res = addFunc(v1, v2); break;  
+                 case "-": res = subFunc(v1, v2); break;  
+                 case "*": res = mulFunc(v1, v2); break;  
+                 case "/": res = divFunc(v1, v2); break;  
+            }
+            $("spData").innerText = res;
+            //////////////////////////////////////////////////////////  
+        }
+        function testMe() {
+            //let num = 123
+            // var num = "Apple"
+            // num = {} //creating object in JS...
+            // num.empId = 123 //Add fields
+            // num.empname ="Phaniraj"
+            // num.empAddress = "Bangalore" 
+            // alert(typeof(num))//Checking the datatype
+
+            var num //U have declared a variable but not assigned any value to it making it Undefined. 
+            alert(typeof(num))
+        }
+    </script>
+</head>
+<body>
+    <h1>Calculator Program</h1>
+    <div>
+        <input type="number" id="txtNum1">
+        <select id="option">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input type="number" id="txtNum2">
+        <button onclick="callFunc()">=</button>
+        <span id="spData"></span>
+    </div>
+    <button onclick="testMe()">Basic Testing</button><br>
+</body>
+</html>
