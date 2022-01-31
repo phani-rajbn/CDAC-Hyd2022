@@ -5,3 +5,4 @@
 - HTML Files
 - Classes and objects
 - Arrays and objects
+- jQuery to manipulate DOM elements
