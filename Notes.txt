@@ -4,4 +4,20 @@ Software: Any OS, Visual Studio Code, Nodejs, an ability to download packages fr
 Things to know: How to create class in JS, How to create methods in JS, Work with collections like arrays. 
 
 span is used to write text or content which are small in size and want to place inline. 
-Unlike Divs and p, it does not create a new block. 
+Unlike Divs and p, it does not create a new block.
+
+Nodejs is an environment to run JS code from a terminal. It means that U dont need an HTML Page to test the Application. 
+Nodejs is built using Chrome's V8 Engine which is the Internal JS Interpretor. U R almost running Chrome on UR Terminal. Developed by Ryan Dyal who works for a company called Joyent Technologies. Currently Joyent maintains nodejs. Current version is 16.x. 
+After installing Nodejs in Ur machine, U can check the version : node --version.
+With Nodejs comes a list pre-created Modules(JS files) which can be used like APIs in ur application. The apis include file io, web servers, IPC, Database programming, REST services and many more. 
+Over and above, U have NPM(Node Package manager), an external opensource repository based on github where Nodejs Developers can upload their projects/solutions to be consumed by other developers. EXPRESS is one such package we use for creating Services and Server based code. 
+As a Nodejs developer, U can create UR own modules and share it among the developer community. It uses the syntax of COMMONJS, a Framework for creating modules in JS. A module is a file that contains classes and functions that could be referenced and used in ur code. 
+
+
+
+
+
+
+
+
+

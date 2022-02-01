@@ -1,0 +1,7 @@
+What is a Function?
+Creating functions in different ways in JS. 
+What are the ways of creating variables in JS. 
+How to create Lambda Methods in JS. 
+How to create a Class in JS. Old style and new Style.
+How to create objects from a class
+How to work with Arrays in JS.
