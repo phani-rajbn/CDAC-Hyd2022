@@ -13,3 +13,5 @@
 - Create Modules
 - Function module vs. Class Module vs. MultiContentModule
 - Consuming a Module from JS File. 
+- Fs Module
+- readline Module for taking inputs from the user. 
