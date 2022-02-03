@@ -1,0 +1,8 @@
+use dbName =>Selects the database or creates a new database and selects it. 
+show dbs => displays all the databases of the installation. If any db does not have data in it, it does not list in the dbs. 
+data in mongodb is inserted as collections. 
+U will create a collection and pass the data to it. It does not support schemas like RDBMS. There is no concept of create table. U simply add the data to the collection without worrying about the columnname or the number of columns. 
+
+db.employees.insert({})=>Inserts the record into the collection called employees. the data U insert should be in the format of JSON. 
+db.employees.find() => Select * from collection. 
+db.employees.find({"empName": "rest"}) => Select * from collection where empName = "rest"
