@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Employee UI</title>
+    <style>
+        body{
+            font-size: 20px;
+        }
+        nav{
+            background-color: yellow;
+            color: ivory;
+            height: 30px;
+            text-align: center;
+            padding: 10px;
+            margin:5px;
+        }
+        a{
+            padding: 5px;
+            margin:5px;
+            display: inline-block;
+            background-color: brown;
+            color:ivory;
+            font-size: 1.2em;
+        }
+    </style>
+    <script>
+        const restUrl = "Employees" //UI and server are on the same port. 
+        
+        //Displays the details of the selected Employee when Edit is clicked
+        function showEdit(){
+            $("div").hide(2000);
+            $("div:eq(1)").show(2000)
+            let id = $(this).attr("eId")
+            let url = restUrl + "/" + id;
+            $.get(url, (data) => {
+                const rec = data[0];
+                $("div:eq(1)>input:eq(0)").val(rec.empId)
+                $("div:eq(1)>input:eq(1)").val(rec.empName)
+                $("div:eq(1)>input:eq(2)").val(rec.empAddress)
+                $("div:eq(1)>input:eq(3)").val(rec.empSalary)
+            })
+        }
+        //This function fills the records into the table and displays it. It also maps the event of Selection to every <a> created dynamically
+        function populateTable() {
+            $("table").find("tr:gt(0)").remove();//Clear the old data of the table.            
+            $.get(restUrl, (data)=>{
+                data.forEach((emp) => {
+                    let row = `<tr><td>${emp.empId}</td><td>${emp.empName}</td><td>${emp.empAddress}</td><td>${emp.empSalary}</td><td><a href="#" class="editClass" eId="${emp.empId}">Edit</a></td></tr>`;
+                    $("table").append(row)
+                    $(".editClass").click(function(){
+                         showEdit();   
+                    }) 
+                });
+            })
+        }
+        //Custom function to provide handlers for all nav-a tags. 
+        function animate(){
+            $("a:eq(0)").click(function(){
+                $("div").hide(2000)
+                $("div:eq(0)").show(2000)
+                populateTable();//Call this helper to fill the records into the table.
+            })
+            $("a:eq(1)").click(function(){
+                $("div").hide(2000)
+                $("div:eq(2)").show(2000)
+            })
+            $("a:eq(2)").click(function(){
+                $("div").hide(2000)
+            })
+        }
+
+        $(document).ready(function(){
+            $("div").hide(2000)
+            animate();
+        })
+    </script>
+</head>
+<body>
+    <h1>Welcome to jQuery User interface for Express App</h1>
+    <nav>
+        <a href="#">Display records</a>
+        <a href="#">Add New Employee</a>
+        <a href="#">Delete Employee</a>
+    </nav>
+    <div>
+        <h2>Table of records</h2>
+        <table border="1">
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Employee Address</th>
+                <th>Employee Salary</th>
+                <th>Options</th>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>Edit Details</h2>
+        <hr>
+        <input type="text" placeholder="Employee ID">
+        <input type="text" placeholder="Employee Name">
+        <input type="text" placeholder="Employee Address">
+        <input type="text" placeholder="Employee Salary">
+        <p><button>Update Record</button></p>
+    </div> 
+    <div>
+        <h2>Add New Employee</h2>
+        <hr>
+        <input type="text" placeholder="Employee ID">
+        <input type="text" placeholder="Employee Name">
+        <input type="text" placeholder="Employee Address">
+        <input type="text" placeholder="Employee Salary">
+        <p><button>Update Record</button></p>
+    </div>
+
+</body>
+</html>

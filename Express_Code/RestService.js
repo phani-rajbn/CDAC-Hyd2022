@@ -1,6 +1,7 @@
 const app = require("express")();//get the app instance.
 const mongodb = require("mongodb").MongoClient;//interface of MongoDB in Nodejs. 
 const parser = require("body-parser");
+const dir = __dirname;
 
 app.use(parser.urlencoded({"extended": true}));//U R defining the format of the body when posted. 
 app.use(parser.json());//JSON format is what it is using...
@@ -52,6 +53,8 @@ app.delete("/Employees/:id", (req, res)=>{
     db.collection("employees").remove({"empId": id});
     res.send(`Employee by id ${id} deleted successfully`)
 })
+
+app.get("/EmployeeUI", (req, res)=> res.sendFile(dir + "/UIApp.html"));
 
 app.listen(1234, ()=>{
     console.log("Server is available at http://localhost:1234");
