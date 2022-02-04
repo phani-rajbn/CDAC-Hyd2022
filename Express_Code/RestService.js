@@ -49,7 +49,8 @@ app.put("/Employees", (req, res)=>{
 })
 
 app.delete("/Employees/:id", (req, res)=>{
-    const id = parseInt(req.params.id);//Extracting the id of the Query string...
+    const id = req.params.id;//Extracting the id of the Query string...
+    console.log(id);
     db.collection("employees").remove({"empId": id});
     res.send(`Employee by id ${id} deleted successfully`)
 })

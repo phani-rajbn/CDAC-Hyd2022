@@ -30,33 +30,74 @@
     <script>
         const restUrl = "Employees" //UI and server are on the same port. 
         
-        //Displays the details of the selected Employee when Edit is clicked
-        function showEdit(){
-            $("div").hide(2000);
-            $("div:eq(1)").show(2000)
-            let id = $(this).attr("eId")
-            let url = restUrl + "/" + id;
-            $.get(url, (data) => {
-                const rec = data[0];
-                $("div:eq(1)>input:eq(0)").val(rec.empId)
-                $("div:eq(1)>input:eq(1)").val(rec.empName)
-                $("div:eq(1)>input:eq(2)").val(rec.empAddress)
-                $("div:eq(1)>input:eq(3)").val(rec.empSalary)
-            })
+        //Adds the record to the database using RESTFFull API. 
+        function addFunc(){
+            //create the emp object
+            const emp = {};
+            //fill the inputs into the object
+            emp.empId = $("#txtNewId").val()
+            emp.empName = $("#txtNewName").val()
+            emp.empAddress = $("#txtNewAddress").val()
+            emp.empSalary = $("#txtNewSalary").val()
+            //call the Ajax Func to post the data to the REST API and finally display the message
+            $.post(restUrl, emp, (res)=>alert(res))
         }
+        
         //This function fills the records into the table and displays it. It also maps the event of Selection to every <a> created dynamically
         function populateTable() {
             $("table").find("tr:gt(0)").remove();//Clear the old data of the table.            
+            //$.get is a Ajax call for GET method of HTTP REST
             $.get(restUrl, (data)=>{
                 data.forEach((emp) => {
                     let row = `<tr><td>${emp.empId}</td><td>${emp.empName}</td><td>${emp.empAddress}</td><td>${emp.empSalary}</td><td><a href="#" class="editClass" eId="${emp.empId}">Edit</a></td></tr>`;
                     $("table").append(row)
                     $(".editClass").click(function(){
-                         showEdit();   
+                        $("div").hide(2000);
+                        $("div:eq(1)").show(2000)
+                        let id = $(this).attr("eId") //this should be the element that U Have clicked. 
+                        let url = restUrl + "/" + id;
+                        $.get(url, (data) => {
+                            const rec = data[0];
+                            $("div:eq(1)>input:eq(0)").val(rec.empId)
+                            $("div:eq(1)>input:eq(1)").val(rec.empName)
+                            $("div:eq(1)>input:eq(2)").val(rec.empAddress)
+                            $("div:eq(1)>input:eq(3)").val(rec.empSalary)
+                        })  
                     }) 
                 });
             })
         }
+        //Function that will delete the record...Before jQuery 4.0, there was no $.get and $.post. There was only $.ajax. However from jQuery 4.x, we now have 2 more methods to perform GET and POST. But for PUT and DELETE U still need to use the older format.
+        function deleteFunc(){
+            const id = prompt("Enter the ID of the Employee to delete")
+            const delUrl = restUrl + "/" + id;
+            $.ajax({
+                "url": delUrl,
+                'method': 'DELETE', 
+                'success' : function(res){
+                    alert(res)
+                }
+
+            })
+        }
+
+        //Function that is called to make changes to the Database on the edited data...
+        function updateFunc() {
+            const emp ={}
+            emp.empId = $("#txtId").val()
+            emp.empName = $("#txtName").val()
+            emp.empAddress = $("#txtAddress").val()
+            emp.empSalary = $("#txtSalary").val()
+            $.ajax({
+                'url' : restUrl,
+                'method': 'PUT',
+                'data' : emp,
+                success:function(res){
+                    alert(res)
+                }
+            })
+        }
+
         //Custom function to provide handlers for all nav-a tags. 
         function animate(){
             $("a:eq(0)").click(function(){
@@ -66,11 +107,14 @@
             })
             $("a:eq(1)").click(function(){
                 $("div").hide(2000)
-                $("div:eq(2)").show(2000)
+                $("div:eq(2)").show(2000)//Display the panel related to Adding of the record....
             })
             $("a:eq(2)").click(function(){
                 $("div").hide(2000)
+                deleteFunc();
             })
+            $("#btnAdd").click(addFunc);
+            $("#btnUpdate").click(updateFunc);
         }
 
         $(document).ready(function(){
@@ -101,21 +145,20 @@
     <div>
         <h2>Edit Details</h2>
         <hr>
-        <input type="text" placeholder="Employee ID">
-        <input type="text" placeholder="Employee Name">
-        <input type="text" placeholder="Employee Address">
-        <input type="text" placeholder="Employee Salary">
-        <p><button>Update Record</button></p>
+        <input type="text" id="txtId" placeholder="Employee ID">
+        <input type="text" id="txtName" placeholder="Employee Name">
+        <input type="text" id="txtAddress" placeholder="Employee Address">
+        <input type="text" id="txtSalary" placeholder="Employee Salary">
+        <p><button id="btnUpdate">Update Record</button></p>
     </div> 
     <div>
         <h2>Add New Employee</h2>
         <hr>
-        <input type="text" placeholder="Employee ID">
-        <input type="text" placeholder="Employee Name">
-        <input type="text" placeholder="Employee Address">
-        <input type="text" placeholder="Employee Salary">
-        <p><button>Update Record</button></p>
+        <input type="text" id="txtNewId" placeholder="Employee ID">
+        <input type="text" id="txtNewName" placeholder="Employee Name">
+        <input type="text" id="txtNewAddress" placeholder="Employee Address">
+        <input type="text" id="txtNewSalary" placeholder="Employee Salary">
+        <p><button id="btnAdd">Add Record</button></p>
     </div>
-
 </body>
 </html>
